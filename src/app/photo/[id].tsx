@@ -6,6 +6,7 @@ import BackIcon from '../../../assets/icons/backWhite.svg';
 import ShareIcon from '../../../assets/icons/shareWhite.svg';
 
 import {COLORS, SIZES} from '@/constants/theme';
+import {openShareDialogAsync} from '@/utils/shareImage';
 
 export default function PhotoScreen() {
   const {id, img_src} = useLocalSearchParams();
@@ -20,7 +21,11 @@ export default function PhotoScreen() {
             <Text style={styles.subtitle}>Photo ID</Text>
             <Text style={styles.title}>{id}</Text>
           </View>
-          <ShareIcon width={24} height={24} />
+          <ShareIcon
+            width={24}
+            height={24}
+            onPress={() => openShareDialogAsync(img_src)}
+          />
         </View>
         <Image source={{uri: img_src}} style={styles.image} />
       </View>
@@ -40,6 +45,7 @@ const styles = StyleSheet.create({
     height: SIZES.height,
   },
   header: {
+    height: 50,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
