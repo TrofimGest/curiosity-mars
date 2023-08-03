@@ -5,6 +5,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {getPhotos} from '@/api/api';
 import CustomActivityIndicator from '@/components/ActivityIndicator';
+import ListEmpty from '@/components/ListEmpty';
 import ListItem from '@/components/ListItem';
 import {COLORS, SIZES} from '@/constants/theme';
 
@@ -28,7 +29,7 @@ export default function CameraRoll() {
   }, [date, camera]);
 
   if (!photos) {
-    return <CustomActivityIndicator mode="dark" />;
+    return <CustomActivityIndicator mode="light" />;
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -39,6 +40,7 @@ export default function CameraRoll() {
           renderItem={({item}) => <ListItem photo={item} />}
           numColumns={3}
           showsVerticalScrollIndicator={false}
+          ListEmptyComponent={<ListEmpty />}
         />
       </View>
     </SafeAreaView>

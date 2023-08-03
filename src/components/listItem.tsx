@@ -1,9 +1,8 @@
-import React from 'react';
 import {View, Pressable, Image, StyleSheet} from 'react-native';
 
 export default function ListItem({photo}) {
   const {img_src, id} = photo;
-  console.log(img_src, id);
+
   return (
     <View style={styles.item}>
       <Pressable>
