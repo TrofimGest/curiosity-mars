@@ -1,4 +1,5 @@
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {Link} from 'expo-router';
 import {useState} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -12,7 +13,7 @@ import {getPhotos} from '@/api/api';
 import {SIZES, COLORS} from '@/constants/theme';
 import {DropDownItem} from '@/types/types';
 import {cameraData} from '@/utils/cameraData';
-import {formatDate} from '@/utils/utils';
+import {formatDate, formatLinkDate} from '@/utils/utils';
 
 export default function HomeScreen(): JSX.Element {
   const [date, setDate] = useState<Date>(new Date());
@@ -32,22 +33,6 @@ export default function HomeScreen(): JSX.Element {
 
   const showDatepicker = () => {
     setShowDatePicker(true);
-  };
-
-  const handleClick = async () => {
-    const currentDate = date;
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day}`;
-    console.log(formattedDate);
-
-    try {
-      const res = await getPhotos(formattedDate, dropDownValue);
-      console.log(res);
-    } catch (error) {
-      console.log('Error fetching pictures: ', error.message);
-    }
   };
 
   return (
@@ -96,11 +81,16 @@ export default function HomeScreen(): JSX.Element {
         )}
         <Text style={styles.subtitle} />
         <View style={[styles.optionContainer, styles.accentBackground]}>
-          <TouchableOpacity
-            onPress={handleClick}
-            style={[styles.button, styles.centralPosition]}>
-            <Text style={styles.buttonText}>Explore</Text>
-          </TouchableOpacity>
+          <Link
+            href={{
+              pathname: '/photos/[camera+date]',
+              params: {camera: dropDownValue, date: formatLinkDate(date)},
+            }}
+            asChild>
+            <TouchableOpacity style={[styles.button, styles.centralPosition]}>
+              <Text style={styles.buttonText}>Explore</Text>
+            </TouchableOpacity>
+          </Link>
         </View>
       </View>
       <Image
