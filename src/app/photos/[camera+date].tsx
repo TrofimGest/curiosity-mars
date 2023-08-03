@@ -1,16 +1,11 @@
 import {useLocalSearchParams} from 'expo-router';
 import {useState, useEffect} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, Text, View, FlatList} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {getPhotos} from '@/api/api';
-import ListItem from '@/components/listItem';
+import CustomActivityIndicator from '@/components/ActivityIndicator';
+import ListItem from '@/components/ListItem';
 import {COLORS, SIZES} from '@/constants/theme';
 
 export default function CameraRoll() {
@@ -33,7 +28,7 @@ export default function CameraRoll() {
   }, [date, camera]);
 
   if (!photos) {
-    return <ActivityIndicator />;
+    return <CustomActivityIndicator mode="dark" />;
   }
   return (
     <SafeAreaView style={styles.container}>
