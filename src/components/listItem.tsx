@@ -1,3 +1,4 @@
+import {Link} from 'expo-router';
 import {View, Pressable, Image, StyleSheet} from 'react-native';
 
 export default function ListItem({photo}) {
@@ -5,9 +6,19 @@ export default function ListItem({photo}) {
 
   return (
     <View style={styles.item}>
-      <Pressable>
-        <Image source={{uri: img_src}} style={styles.image} />
-      </Pressable>
+      <Link
+        href={{
+          pathname: '/photo/[id]',
+          params: {
+            id,
+            img_src,
+          },
+        }}
+        asChild>
+        <Pressable>
+          <Image source={{uri: img_src}} style={styles.image} />
+        </Pressable>
+      </Link>
     </View>
   );
 }

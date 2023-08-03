@@ -12,12 +12,11 @@ import ListItem from '@/components/ListItem';
 import {COLORS, SIZES} from '@/constants/theme';
 import {formatDate} from '@/utils/utils';
 
-export default function CameraRoll() {
+export default function CameraRollScreen() {
   const router = useRouter();
   const {camera, date, cameraTitle} = useLocalSearchParams();
 
   const [photos, setPhotos] = useState(null);
-  const [activePhoto, setActivePhoto] = useState(null);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -82,5 +81,6 @@ const styles = StyleSheet.create({
   subtitle: {fontFamily: 'regular', fontSize: 13},
   itemsList: {
     width: SIZES.width - 24,
+    height: SIZES.height,
   },
 });
