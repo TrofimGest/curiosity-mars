@@ -9,7 +9,6 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CalendarIcon from '../../assets/icons/calendar.svg';
 import DropDownIcon from '../../assets/icons/dropdown.svg';
 
-import {getPhotos} from '@/api/api';
 import {SIZES, COLORS} from '@/constants/theme';
 import {DropDownItem} from '@/types/types';
 import {cameraData} from '@/utils/cameraData';

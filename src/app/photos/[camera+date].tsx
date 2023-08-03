@@ -10,11 +10,14 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {getPhotos} from '@/api/api';
+import ListItem from '@/components/listItem';
+import {COLORS, SIZES} from '@/constants/theme';
 
 export default function CameraRoll() {
   const {camera, date} = useLocalSearchParams();
 
   const [photos, setPhotos] = useState(null);
+  const [activePhoto, setActivePhoto] = useState(null);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -34,12 +37,15 @@ export default function CameraRoll() {
   }
   return (
     <SafeAreaView style={styles.container}>
-      <Text>{date}</Text>
-      <FlatList
-        data={photos}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => <Text style={{color: 'black'}}>{item.id}</Text>}
-      />
+      <View style={styles.itemsList}>
+        <FlatList
+          data={photos}
+          keyExtractor={item => item.id.toString()}
+          renderItem={({item}) => <ListItem photo={item} />}
+          numColumns={3}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -48,6 +54,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
+    verticalAlign: 'top',
+    width: '100%',
+    backgroundColor: COLORS.background,
+  },
+  itemsList: {
+    width: SIZES.width - 24,
   },
 });
