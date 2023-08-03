@@ -8,6 +8,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CalendarIcon from '../../assets/icons/calendar.svg';
 import DropDownIcon from '../../assets/icons/dropdown.svg';
 
+import {getPhotos} from '@/api/api';
 import {SIZES, COLORS} from '@/constants/theme';
 import {DropDownItem} from '@/types/types';
 import {cameraData} from '@/utils/cameraData';
@@ -31,6 +32,22 @@ export default function HomeScreen(): JSX.Element {
 
   const showDatepicker = () => {
     setShowDatePicker(true);
+  };
+
+  const handleClick = async () => {
+    const currentDate = date;
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    console.log(formattedDate);
+
+    try {
+      const res = await getPhotos(formattedDate, dropDownValue);
+      console.log(res);
+    } catch (error) {
+      console.log('Error fetching pictures: ', error.message);
+    }
   };
 
   return (
@@ -79,7 +96,9 @@ export default function HomeScreen(): JSX.Element {
         )}
         <Text style={styles.subtitle} />
         <View style={[styles.optionContainer, styles.accentBackground]}>
-          <TouchableOpacity style={[styles.button, styles.centralPosition]}>
+          <TouchableOpacity
+            onPress={handleClick}
+            style={[styles.button, styles.centralPosition]}>
             <Text style={styles.buttonText}>Explore</Text>
           </TouchableOpacity>
         </View>
