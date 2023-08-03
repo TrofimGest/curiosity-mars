@@ -9,16 +9,19 @@ import CalendarIcon from '../../assets/icons/calendar.svg';
 import DropDownIcon from '../../assets/icons/dropdown.svg';
 
 import {SIZES, COLORS} from '@/constants/theme';
+import {DropDownItem} from '@/types/types';
 import {cameraData} from '@/utils/cameraData';
 import {formatDate} from '@/utils/utils';
 
-export default function HomeScreen() {
-  const [date, setDate] = useState(new Date());
-  const [showDatePicker, setShowDatePicker] = useState(false);
+export default function HomeScreen(): JSX.Element {
+  const [date, setDate] = useState<Date>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
 
-  const [openDropDown, setOpenDropDown] = useState(false);
-  const [dropDownValue, setDropDownValue] = useState('');
-  const [dropDownItems, setDropDownItems] = useState([...cameraData]);
+  const [openDropDown, setOpenDropDown] = useState<boolean>(false);
+  const [dropDownValue, setDropDownValue] = useState<string>('');
+  const [dropDownItems, setDropDownItems] = useState<DropDownItem[]>([
+    ...cameraData,
+  ]);
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate;
