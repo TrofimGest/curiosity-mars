@@ -17,7 +17,9 @@ import {formatDate, formatLinkDate} from '@/utils/utils';
 export default function HomeScreen(): JSX.Element {
   const [date, setDate] = useState<Date>(new Date());
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
-
+  const [currentItem, setCurrentItem] = useState<string>(
+    'Front Hazard Avoidance Camera',
+  );
   const [openDropDown, setOpenDropDown] = useState<boolean>(false);
   const [dropDownValue, setDropDownValue] = useState<string>('');
   const [dropDownItems, setDropDownItems] = useState<DropDownItem[]>([
@@ -46,6 +48,7 @@ export default function HomeScreen(): JSX.Element {
           setOpen={setOpenDropDown}
           setValue={setDropDownValue}
           setItems={setDropDownItems}
+          onSelectItem={item => setCurrentItem(item.label)}
           maxHeight={400}
           placeholder="Select a camera"
           props={{
@@ -76,14 +79,23 @@ export default function HomeScreen(): JSX.Element {
           </TouchableOpacity>
         </View>
         {showDatePicker && (
-          <DateTimePicker value={date} mode="date" onChange={onChange} />
+          <DateTimePicker
+            value={date}
+            mode="date"
+            onChange={onChange}
+            maximumDate={new Date()}
+          />
         )}
         <Text style={styles.subtitle} />
         <View style={[styles.optionContainer, styles.accentBackground]}>
           <Link
             href={{
               pathname: '/photos/[camera+date]',
-              params: {camera: dropDownValue, date: formatLinkDate(date)},
+              params: {
+                camera: dropDownValue,
+                date: formatLinkDate(date),
+                cameraTitle: currentItem,
+              },
             }}
             asChild>
             <TouchableOpacity style={[styles.button, styles.centralPosition]}>

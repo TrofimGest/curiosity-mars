@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: SIZES.height,
+    height: SIZES.height - 100,
   },
   listEmptyText: {
     textAlign: 'center',
