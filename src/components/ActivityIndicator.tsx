@@ -6,7 +6,11 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 import {COLORS} from '@/constants/theme';
 
-export default function CustomActivityIndicator({mode}) {
+interface ICustomActivity {
+  mode: string;
+}
+
+export default function CustomActivityIndicator({mode}: ICustomActivity) {
   return (
     <SafeAreaView
       style={[

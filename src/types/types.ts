@@ -3,3 +3,10 @@ export type DropDownItem = {
   value: string;
   index: string;
 };
+
+export interface IPhoto {
+  earth_date: string;
+  id: number;
+  img_src: string;
+  sol: number;
+}

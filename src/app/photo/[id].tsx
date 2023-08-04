@@ -27,7 +27,7 @@ export default function PhotoScreen() {
             onPress={() => openShareDialogAsync(img_src)}
           />
         </View>
-        <Image source={{uri: img_src}} style={styles.image} />
+        <Image source={{uri: img_src as string}} style={styles.image} />
       </View>
     </SafeAreaView>
   );

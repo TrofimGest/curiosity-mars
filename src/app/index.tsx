@@ -26,10 +26,11 @@ export default function HomeScreen(): JSX.Element {
     ...cameraData,
   ]);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
+  const onChange = (currentDate: Date | undefined): void => {
     setShowDatePicker(false);
-    setDate(currentDate);
+    if (currentDate) {
+      setDate(currentDate);
+    }
   };
 
   const showDatepicker = () => {
@@ -48,7 +49,7 @@ export default function HomeScreen(): JSX.Element {
           setOpen={setOpenDropDown}
           setValue={setDropDownValue}
           setItems={setDropDownItems}
-          onSelectItem={item => setCurrentItem(item.label)}
+          onSelectItem={item => setCurrentItem(item.label ?? '')}
           maxHeight={400}
           placeholder="Select a camera"
           props={{
@@ -82,7 +83,7 @@ export default function HomeScreen(): JSX.Element {
           <DateTimePicker
             value={date}
             mode="date"
-            onChange={onChange}
+            onChange={(event, date) => onChange(date)}
             maximumDate={new Date()}
           />
         )}
@@ -118,9 +119,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: COLORS.background,
+    zIndex: 1,
   },
   wrapperContainer: {
+    marginTop: '32%',
     width: SIZES.width - 48,
+    zIndex: 1,
   },
   optionContainer: {
     flexDirection: 'row',

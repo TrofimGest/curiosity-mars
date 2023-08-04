@@ -10,24 +10,22 @@ import CustomActivityIndicator from '@/components/ActivityIndicator';
 import ListEmpty from '@/components/ListEmpty';
 import ListItem from '@/components/ListItem';
 import {COLORS, SIZES} from '@/constants/theme';
+import {IPhoto} from '@/types/types';
 import {formatDate} from '@/utils/utils';
 
 export default function CameraRollScreen() {
   const router = useRouter();
   const {camera, date, cameraTitle} = useLocalSearchParams();
 
-  const [photos, setPhotos] = useState(null);
+  const [photos, setPhotos] = useState<IPhoto[] | null>(null);
 
   useEffect(() => {
     const fetchPhotos = async () => {
-      try {
-        const data = await getPhotos(date, camera);
+      const data = await getPhotos(date as string, camera as string);
+      if (data) {
         setPhotos(data.photos);
-      } catch (error) {
-        console.log('Error fetching pictures: ', error.message);
       }
     };
-
     fetchPhotos();
   }, [date, camera]);
 
@@ -41,7 +39,9 @@ export default function CameraRollScreen() {
           <BackIcon width={24} height={24} onPress={() => router.back()} />
           <View style={styles.headerTextContainer}>
             <Text style={styles.title}>{cameraTitle}</Text>
-            <Text style={styles.subtitle}>{formatDate(new Date(date))}</Text>
+            <Text style={styles.subtitle}>
+              {formatDate(new Date(date as string))}
+            </Text>
           </View>
           <View style={{width: 24, height: 24}} />
         </View>

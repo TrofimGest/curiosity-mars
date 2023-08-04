@@ -1,7 +1,13 @@
 import {Link} from 'expo-router';
 import {View, Pressable, Image, StyleSheet} from 'react-native';
 
-export default function ListItem({photo}) {
+import {IPhoto} from '@/types/types';
+
+interface IListItem {
+  photo: IPhoto;
+}
+
+export default function ListItem({photo}: IListItem) {
   const {img_src, id} = photo;
 
   return (
